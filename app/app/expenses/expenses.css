@@ -1,0 +1,117 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    min-height: 100vh; /* Ensure the container takes at least the full height of the viewport */
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333; /* Darker text color */
+}
+
+.expenses-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.expense-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.expense-card h3 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.expense-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.expense-card p strong {
+    color: #333;
+}
+
+.expense-card .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Move to the top right corner */
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.expense-card:hover .delete-btn {
+    display: flex;
+}
+
+.person-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.person-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 60px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the text */
+    left: 50%;
+    margin-left: -30px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.person-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+p{
+    color: black;
+}
+/* Media query for smaller devices */
+@media (max-width: 768px) {
+    .expense-card {
+        width: 100%;
+    }
+}
