@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Card, Title, Button, TextInput } from '@tremor/react';
+import { Card, Title } from '@tremor/react';
 import './view.css'; 
 
 const ExpenseReport = () => {
@@ -66,47 +66,52 @@ const ExpenseReport = () => {
             <button className="back-to-dashboard-btn dark" onClick={() => window.location.href = '/dashboard'}>Back to Dashboard</button>
             <Title>Generate Expense Report</Title>
             <Card className="report-card">
+                <h2 className="dark">Generate Expense Report</h2>
                 <div className="form-group">
                     <label htmlFor="startDate">Start Date</label>
-                    <TextInput
+                    <input
                         id="startDate"
                         type="date"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                         placeholder={dateRange.minDate}
+                        className="form-control"
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="endDate">End Date</label>
-                    <TextInput
+                    <input
                         id="endDate"
                         type="date"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                         placeholder={dateRange.maxDate}
+                        className="form-control"
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="minAmount">Min Amount</label>
-                    <TextInput
+                    <input
                         id="minAmount"
                         type="number"
                         value={minAmount}
                         onChange={(e) => setMinAmount(e.target.value)}
                         placeholder="0"
+                        className="form-control"
                     />
                 </div>
                 <div className="form-group">
                     <label htmlFor="maxAmount">Max Amount</label>
-                    <TextInput
+                    <input
                         id="maxAmount"
                         type="number"
                         value={maxAmount}
                         onChange={(e) => setMaxAmount(e.target.value)}
                         placeholder="10000"
+                        className="form-control"
                     />
                 </div>
-                <Button onClick={handleGenerateReport}>Generate Report</Button>
+                <button className="generate-report-btn" onClick={handleGenerateReport}>Generate Report</button>
             </Card>
         </div>
     );
