@@ -53,6 +53,11 @@ const Dashboard = () => {
                 ))}
             </div>
             <button className="view-all-btn" onClick={() => window.location.href = '/expenses'}>More..</button>
+            <div className="navigation-buttons">
+                <button onClick={() => window.location.href = '/expense-report'}>Generate Expense Report</button>
+                <button onClick={() => window.location.href = '/expenses'}>View All Expenses</button>
+                <button onClick={() => window.location.href = '/dashboard/view'}>Generate Graph</button>
+            </div>
         </div>
     );
 }

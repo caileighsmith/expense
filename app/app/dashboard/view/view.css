@@ -46,3 +46,6 @@
 .recharts-legend-item-text {
     color: #8884d8 !important;
 }
+.dark {
+    color: black;
+}

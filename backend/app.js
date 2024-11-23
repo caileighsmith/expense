@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const sqlite = require('sqlite');
 const sqlite3 = require('sqlite3');
+const ExcelJS = require('exceljs');
 const app = express();
 const port = 3001;
 
@@ -118,6 +119,92 @@ app.get('/expenses/person/:name', async (req, res) => {
     res.json(expenses);
   } catch (err) {
     res.status(500).send('Failed to retrieve expenses for person');
+  }
+});
+
+// Route to generate expense report in Excel
+app.get('/expense-report', async (req, res) => {
+  const { startDate, endDate, minAmount, maxAmount, person } = req.query;
+
+  try {
+    let query = 'SELECT * FROM expenses WHERE 1=1';
+    const params = [];
+
+    if (startDate) {
+      query += ' AND date >= ?';
+      params.push(startDate);
+    }
+
+    if (endDate) {
+      query += ' AND date <= ?';
+      params.push(endDate);
+    }
+
+    if (minAmount) {
+      query += ' AND amount >= ?';
+      params.push(minAmount);
+    }
+
+    if (maxAmount) {
+      query += ' AND amount <= ?';
+      params.push(maxAmount);
+    }
+
+    if (person) {
+      query += ' AND json_extract(people, "$[*].name") LIKE ?';
+      params.push(`%${person}%`);
+    }
+
+    const expenses = await db.all(query, params);
+
+    if (expenses.length === 0) {
+      return res.status(404).send('No expenses found for the given criteria');
+    }
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Expenses');
+
+    worksheet.columns = [
+      { header: 'Expense Name', key: 'expenseName', width: 30 },
+      { header: 'Amount', key: 'amount', width: 15 },
+      { header: 'Date', key: 'date', width: 15 },
+      { header: 'Description', key: 'description', width: 30 },
+      { header: 'People', key: 'people', width: 30 },
+      { header: 'Recurring', key: 'isRecurring', width: 10 },
+      { header: 'Recurring Day', key: 'recurringDay', width: 15 },
+    ];
+
+    expenses.forEach((expense) => {
+      worksheet.addRow({
+        expenseName: expense.expenseName,
+        amount: `£${expense.amount.toLocaleString()}`,
+        date: expense.date,
+        description: expense.description,
+        people: expense.people,
+        isRecurring: expense.isRecurring ? 'Yes' : 'No',
+        recurringDay: expense.recurringDay,
+      });
+    });
+
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename=expense-report.xlsx');
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (err) {
+    console.error('Error generating expense report:', err);
+    res.status(500).send('Failed to generate expense report');
+  }
+});
+
+// Route to fetch filter options
+app.get('/filter-options', async (req, res) => {
+  try {
+    const people = await db.all('SELECT DISTINCT json_extract(value, "$.name") as name FROM expenses, json_each(people)');
+    const dateRange = await db.get('SELECT MIN(date) as minDate, MAX(date) as maxDate FROM expenses');
+    res.json({ people, dateRange });
+  } catch (err) {
+    res.status(500).send('Failed to retrieve filter options');
   }
 });
 

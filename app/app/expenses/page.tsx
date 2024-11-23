@@ -74,6 +74,7 @@ const AllExpenses = () => {
 
     return (
         <div className="dashboard-container">
+            <button className="back-to-dashboard-btn dark" onClick={() => window.location.href = '/dashboard'}>Back to Dashboard</button>
             <h1>All Expenses</h1>
             <div className="filters">
                 <input

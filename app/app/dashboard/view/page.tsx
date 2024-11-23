@@ -48,6 +48,7 @@ const PersonExpenses = () => {
 
     return (
         <div className="person-expenses-container">
+            <button className="back-to-dashboard-btn dark" onClick={() => window.location.href = '/dashboard'}>Back to Dashboard</button>
             <h1>Person Expenses</h1>
             <Select
                 options={options}

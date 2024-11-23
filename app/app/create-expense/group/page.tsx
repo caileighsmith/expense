@@ -65,6 +65,9 @@ const CreateGroupExpense = () => {
     return (
         <div className="dashboard-container">
             <div className="card">
+                <div className="back-card">
+                    <button className="back-to-dashboard-btn dark" onClick={() => window.location.href = '/dashboard'}>Back to Dashboard</button>   
+                </div>
                 <h2>Create Group Expense</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group-inline">

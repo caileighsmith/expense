@@ -10,24 +10,23 @@
 .dropdown {
     position: relative;
     display: inline-block;
-    margin-bottom: 20px;
 }
 
 .dropbtn {
-    background-color: #333;
+    background-color: #007bff;
     color: white;
-    padding: 16px 24px;
-    font-size: 16px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
     transition: background-color 0.3s ease;
     display: flex;
     align-items: center;
 }
 
 .dropbtn:hover {
-    background-color: #555;
+    background-color: #0056b3;
 }
 
 .arrow {
@@ -80,6 +79,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: calc(33.333% - 20px);
     box-sizing: border-box;
+    position: relative;
 }
 
 .expense-card h3 {
@@ -96,6 +96,26 @@
 
 .expense-card p strong {
     color: #333;
+}
+
+.expense-card .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Move to the top right corner */
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.expense-card:hover .delete-btn {
+    display: flex;
 }
 
 .person-tooltip {
@@ -148,4 +168,26 @@
 
 .view-all-btn:hover {
     background-color: #555;
+}
+
+.navigation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.navigation-buttons button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+    background-color: #0056b3;
 }

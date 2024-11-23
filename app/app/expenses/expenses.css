@@ -106,6 +106,12 @@
     visibility: visible;
     opacity: 1;
 }
+
+.dark {
+    color: black;
+}
+
+
 p{
     color: black;
 }
